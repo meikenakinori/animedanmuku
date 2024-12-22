@@ -4,7 +4,7 @@ session_start();
 
 // 函数：处理弹幕下载
 function handleDanmakuDownload($episodeId, $episodeTitle) {
-    $commentUrl = "https://api.dandanplay.net/api/v2/comment/" . urlencode($episodeId) . "?withRelated=false";
+    $commentUrl = "https://api.dandanplay.net/api/v2/comment/" . urlencode($episodeId) . "?withRelated=true";
     
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $commentUrl);
