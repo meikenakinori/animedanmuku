@@ -1,7 +1,4 @@
-<?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-session_start();
+<?php error_reporting(E_ALL); ini_set('display_errors', 1); session_start();
 
 mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
@@ -183,8 +180,17 @@ if (isset($_GET['download']) && isset($_GET['episodeId']) && isset($_GET['title'
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2TGCNE1N8Q"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-2TGCNE1N8Q');
+</script>
     <meta charset="UTF-8">
-    <title>彈幕搜尋與轉換</title>
+    <title>動畫彈幕線上下載</title>
     <script src="js/full.js"></script>
     <style>
         body {
@@ -260,7 +266,7 @@ if (isset($_GET['download']) && isset($_GET['episodeId']) && isset($_GET['title'
     <div style="text-align: right; margin: 10px;">
         <button onclick="window.location.href='anime.php'" style="background-color: #2196F3;">切換至簡體中文</button>
     </div>
-    <h1>彈幕搜尋與轉換</h1>
+    <h1>動畫彈幕線上下載</h1>
     
     <form method="GET" action="" class="search-form" onsubmit="return handleSearch(event)">
     <div class="option-group">
@@ -295,6 +301,17 @@ if (isset($_GET['download']) && isset($_GET['episodeId']) && isset($_GET['title'
                 <option value="MingLiU">細明體</option>
                 <option value="PMingLiU">新細明體</option>
             </select>
+        </div>
+        <div id="content-tw" style="display: block;">
+            <h1>動畫彈幕一鍵下載工具</h1>
+            <p>喜歡彈幕的朋友看過來！</p>
+            <p>這是一個線上動畫彈幕下載工具，讓你輕鬆將 Bilibili、巴哈動畫瘋、彈彈Play 的彈幕下載成 <strong>ASS 字幕檔</strong>，在任何播放器中都能完整還原彈幕體驗！</p>
+            <h2>✨ 功能亮點</h2>
+            <ul>
+                <li>支援幾乎所有動畫彈幕下載</li>
+                <li><strong>自動將彈幕轉換為繁體中文</strong></li>
+                <li>簡單方便，無需安裝軟體</li>
+                <li>直接生成 ASS 字幕檔，隨取隨用</li>
         </div>
     </div>
 
@@ -367,6 +384,40 @@ if (isset($_GET['download']) && isset($_GET['episodeId']) && isset($_GET['title'
     
     return false;
 }
+       // 在頁面加載時讀取保存的設定
+document.addEventListener('DOMContentLoaded', function() {
+    // 讀取保存的設定
+    const savedFontSize = localStorage.getItem('fontSize') || 45;
+    const savedAlpha = localStorage.getItem('alpha') || 80;
+    const savedDuration = localStorage.getItem('duration') || 10;
+    const savedFontName = localStorage.getItem('fontName') || 'Microsoft YaHei';
+    
+    // 設置表單值
+    document.getElementById('fontSize').value = savedFontSize;
+    document.getElementById('alpha').value = savedAlpha;
+    document.getElementById('duration').value = savedDuration;
+    document.getElementById('fontName').value = savedFontName;
+    document.getElementById('alphaValue').textContent = savedAlpha + '%';
+});
+
+// 當設定改變時保存
+function saveSettings() {
+    const fontSize = document.getElementById('fontSize').value;
+    const alpha = document.getElementById('alpha').value;
+    const duration = document.getElementById('duration').value;
+    const fontName = document.getElementById('fontName').value;
+    
+    localStorage.setItem('fontSize', fontSize);
+    localStorage.setItem('alpha', alpha);
+    localStorage.setItem('duration', duration);
+    localStorage.setItem('fontName', fontName);
+}
+
+// 為每個輸入添加事件監聽器
+document.getElementById('fontSize').addEventListener('change', saveSettings);
+document.getElementById('alpha').addEventListener('input', saveSettings);
+document.getElementById('duration').addEventListener('change', saveSettings);
+document.getElementById('fontName').addEventListener('change', saveSettings);
         // 更新透明度顯示
         document.getElementById('alpha').addEventListener('input', function() {
             document.getElementById('alphaValue').textContent = this.value + '%';

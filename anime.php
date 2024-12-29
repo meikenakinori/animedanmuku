@@ -232,8 +232,17 @@ if (isset($_GET['download']) && isset($_GET['episodeId']) && isset($_GET['title'
 <!DOCTYPE html>
 <html lang="zh">
 <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2TGCNE1N8Q"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-2TGCNE1N8Q');
+</script>
     <meta charset="UTF-8">
-    <title>弹幕搜索与转换</title>
+    <title>动画弹幕线上下载</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -306,7 +315,7 @@ if (isset($_GET['download']) && isset($_GET['episodeId']) && isset($_GET['title'
        <div style="text-align: right; margin: 10px;">
         <button onclick="window.location.href='animet.php'" style="background-color: #2196F3;">切換至繁體中文</button>
     </div>
-    <h1>弹幕搜索与转换</h1>
+    <h1>动画弹幕线上下载</h1>
     
     <!-- 搜索表单 -->
     <form method="GET" action="" class="search-form">
@@ -342,6 +351,17 @@ if (isset($_GET['download']) && isset($_GET['episodeId']) && isset($_GET['title'
                 <option value="KaiTi">楷体</option>
                 <option value="SimSun">宋体</option>
             </select>
+        </div>
+        <div id="content-cn" style="display: block;">
+            <h1>动画弹幕一键下载工具</h1>
+            <p>喜欢弹幕的朋友看过来！</p>
+            <p>这是一个线上动画弹幕下载工具，让你轻松将 Bilibili、巴哈动画疯、弹弹Play 的弹幕下载成 <strong>ASS 字幕文件</strong>，在任何播放器中都能完整还原弹幕体验！</p>
+            <h2>✨ 功能亮点</h2>
+            <ul>
+                <li>支持几乎所有动画弹幕下载</li>
+                <li><strong>自动将弹幕转换为简体中文</strong></li>
+                <li>简单方便，无需安装软件</li>
+                <li>直接生成 ASS 字幕文件，随取随用</li>
         </div>
     </div>
 
@@ -401,6 +421,40 @@ if (isset($_GET['download']) && isset($_GET['episodeId']) && isset($_GET['title'
     ?>
 
     <script>
+    // 在頁面加載時讀取保存的設定
+document.addEventListener('DOMContentLoaded', function() {
+    // 讀取保存的設定
+    const savedFontSize = localStorage.getItem('fontSize') || 45;
+    const savedAlpha = localStorage.getItem('alpha') || 80;
+    const savedDuration = localStorage.getItem('duration') || 10;
+    const savedFontName = localStorage.getItem('fontName') || 'Microsoft YaHei';
+    
+    // 設置表單值
+    document.getElementById('fontSize').value = savedFontSize;
+    document.getElementById('alpha').value = savedAlpha;
+    document.getElementById('duration').value = savedDuration;
+    document.getElementById('fontName').value = savedFontName;
+    document.getElementById('alphaValue').textContent = savedAlpha + '%';
+});
+
+// 當設定改變時保存
+function saveSettings() {
+    const fontSize = document.getElementById('fontSize').value;
+    const alpha = document.getElementById('alpha').value;
+    const duration = document.getElementById('duration').value;
+    const fontName = document.getElementById('fontName').value;
+    
+    localStorage.setItem('fontSize', fontSize);
+    localStorage.setItem('alpha', alpha);
+    localStorage.setItem('duration', duration);
+    localStorage.setItem('fontName', fontName);
+}
+
+// 為每個輸入添加事件監聽器
+document.getElementById('fontSize').addEventListener('change', saveSettings);
+document.getElementById('alpha').addEventListener('input', saveSettings);
+document.getElementById('duration').addEventListener('change', saveSettings);
+document.getElementById('fontName').addEventListener('change', saveSettings);
     // 更新透明度显示值
     document.getElementById('alpha').addEventListener('input', function() {
         document.getElementById('alphaValue').textContent = this.value + '%';
